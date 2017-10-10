@@ -9,10 +9,10 @@ public:
 	~base() {std::cout << "~base(" << value_ << ")\n"; }
 
 	int value() const { return value_; }
-	
+
 	base& operator++()
 	{
-		++value_;
+		value_--;
 		return *this;
 	}
 private:
