@@ -57,6 +57,12 @@ void showoff (work const& w) {
 	std::cout << "\n" ;
 }
 
+ostream& operator<<(ostream& out ,work const& w) {
+	w.print(out) ;
+
+	return out ;
+}
+
 
 int main() {
 	book sc {"1", "The Sun Also Crashes" , "Ernest Lemmingway" , 2000} ;
@@ -67,4 +73,9 @@ int main() {
 	showoff(ecpp) ;
 	showoff(pop) ;
 	showoff(today) ;
+
+	cout << "New operator: " << sc << endl ;
+	cout << "New operator: " << ecpp << endl ;
+	cout << "New operator: " << pop << endl ;
+	cout << "New operator: " << today << endl ;
 }

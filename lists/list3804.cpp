@@ -51,12 +51,31 @@ int number_;		///< issue number
 string date_;		///< publication date
 };
 
+class movie : public work {
+public:
+	movie() : work{} , duration_{0} {}
+	movie(string const& id , string const& title, int duration) 
+	: work{id, title} , duration_{duration} {}
+	int duration() const {return duration_ ;}
+	void print (ostream& out) const override {
+		out << title() << ", Duration(in minutes): " << duration() << "." ;
+	} 
+
+private:
+	int duration_ ;
+
+};
 
 void showoff (work const& w) {
 	w.print (std::cout) ;
 	std::cout << "\n" ;
 }
 
+ostream& operator<<(ostream& out ,work const& w) {
+	w.print(out) ;
+
+	return out ;
+}
 
 
 int main() {
@@ -64,10 +83,10 @@ int main() {
 	book ecpp {"2" , "Exploding C++" , "Ray Lischner", 2013} ;
 	periodical pop {"3" , "Popular C++", 13, 42, "January 1, 2000"} ;
 	periodical today {"4", "C++ Today" , 1 , 1 , "January 13, 1984"} ;
-	/*showoff(sc) ;
-	showoff(ecpp) ;
-	showoff(pop) ;
-	showoff(today) ;
-*/
+	
+	movie one{"5" , "Titanic" , 175} ;
 
+	showoff (one) ;
+
+	cout << "New operator: " << one << endl ;
 }

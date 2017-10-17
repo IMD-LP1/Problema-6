@@ -12,7 +12,7 @@ public:
 	virtual ~work() {}
 	string const& id() const { return id_; }
 	string const& title() const { return title_; }
-	virtual void print(ostream&) const {}
+	virtual void print(ostream&) = 0 ;
 private:
 	string id_;
 	string title_;	
@@ -25,7 +25,7 @@ public:
 	: work{id, title}, author_{author}, pubyear_{pubyear} {}
 	string const& author() const { return author_; }
 	int pubyear()		   const { return pubyear_; }
-	void print(ostream& out) const override {
+	void print(ostream& out) const {
 		out << author() << ", " << title() << ", " << pubyear() << ".";
 	}
 private:
@@ -41,7 +41,7 @@ public:
 	int volume() const { return volume_; }
 	int number() const { return number_; }
 	string const& date() const { return date_; }
-	void print(ostream& out) const override {
+	void print(ostream& out) const {
 		out << title() << ", "
 			<< volume() << "(" << number() << ")," << date() << ".";
 	}
@@ -51,12 +51,31 @@ int number_;		///< issue number
 string date_;		///< publication date
 };
 
+class movie : public work {
+public:
+	movie() : work{} , duration_{0} {}
+	movie(string const& id , string const& title, int duration) 
+	: work{id, title} , duration_{duration} {}
+	int duration() const {return duration_ ;}
+	void print (ostream& out) const {
+		out << title() << ", Duration(in minutes): " << duration() << "." ;
+	} 
+
+private:
+	int duration_ ;
+
+};
 
 void showoff (work const& w) {
 	w.print (std::cout) ;
 	std::cout << "\n" ;
 }
 
+ostream& operator<<(ostream& out ,work const& w) {
+	w.print(out) ;
+
+	return out ;
+}
 
 
 int main() {
@@ -64,10 +83,10 @@ int main() {
 	book ecpp {"2" , "Exploding C++" , "Ray Lischner", 2013} ;
 	periodical pop {"3" , "Popular C++", 13, 42, "January 1, 2000"} ;
 	periodical today {"4", "C++ Today" , 1 , 1 , "January 13, 1984"} ;
-	/*showoff(sc) ;
-	showoff(ecpp) ;
-	showoff(pop) ;
-	showoff(today) ;
-*/
+	
+	movie one{"5" , "Titanic" , 175} ;
 
+	showoff (sc) ;
+
+	cout << "New operator: " << sc << endl ;
 }
