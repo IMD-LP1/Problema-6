@@ -38,8 +38,13 @@ public:
     Pessoa(string nome, Data dataNascimento , CPF cpf , RG  rg , string nome_mae) 
     : nome_{nome} , dataNascimento_{dataNascimento} , cpf_{cpf} , rg_{rg} , nome_mae_{nome_mae} {}
     void MostreInfo() {
-        cout << nome_ << '\n' << " nasceu em " << dataNascimento_.MostreData() <<
-        "cpf : " << cpf_.MostreCPF() << "rg : " << rg_.MostreRG() << "nome da mae : " << nome_mae_ << endl;;
+        cout << nome_ << '\n' << "nasceu em " ;
+        dataNascimento_.MostreData() ;
+        cout << "cpf : ";
+        cpf_.MostreCPF() ;
+        cout << "rg : " ;
+        rg_.MostreRG() ; 
+        cout << "nome da mae : " << nome_mae_ << endl;;
     }
 private:
     string nome_ ;
@@ -49,8 +54,22 @@ private:
     string nome_mae_ ;
 };
 
+class Funcionario : public Pessoa{
+public:
+    Funcionario(string nome, Data dataNascimento , CPF cpf , RG  rg , string nome_mae ,
+                Data dataDeContratacao, float salario , Pessoa pessoa)
+    : Pessoa{nome, dataNascimento , cpf , rg , nome_mae} , dataDeContratacao_{dataDeContratacao} , salario_{salario}{}
+    void MostreFunc() {
+        MostreInfo() ;
+        cout << "salario : " << salario_ << endl << "data de contratacao : " ;
+        dataDeContratacao_.MostreData() ;
+    }
+private:
+    Data dataDeContratacao_;
+    float salario_ ;
+};
 
 int main () {
-    Pessoa pessoa{"Joao Silva", Data{1,1,1998} ,222 , 555 ,"Joana" };
-    pessoa.MostreInfo() ;
+    Funcionario f{Data{2,2,2012}, 500.00 ,"Joao Silva", Data{1,1,1998} ,222 , 555 ,"Joana"};
+    f.MostreFunc() ;
 }
