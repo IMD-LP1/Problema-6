@@ -70,6 +70,8 @@ private:
 };
 
 int main () {
+    //Pessoa pessoa{"Joao Silva", Data{1,1,1998} ,222 , 555 ,"Joana"};
+    //pessoa.MostreInfo() ;
     Funcionario f{Data{2,2,2012}, 500.00 ,"Joao Silva", Data{1,1,1998} ,222 , 555 ,"Joana"};
     f.MostreFunc() ;
 }
