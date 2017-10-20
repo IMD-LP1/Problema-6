@@ -7,7 +7,7 @@ class visible {
 public:
 	visible(string&& msg) : msg_{move(msg)} {cout << msg_ << '\n';};
 	string const& msg() const { return msg_ ;}
-private:
+protected:
 	string msg_;
 };
 
@@ -29,7 +29,7 @@ class base3 : public visible{
 public:
 	base3() : visible {"base3 constructed"} {} 
 	int value() const { return 42;} 
-	string const& msg() const { return visible::msg(); }
+	string const& msg() const { return visible::msg_; }
 };
 
 class derived : public base1 , public base2 , public base3 {
@@ -45,4 +45,5 @@ public:
 int main ()
 {
 	derived d{42,"example"};
+	cout << d.derived::msg() << endl;
 }
